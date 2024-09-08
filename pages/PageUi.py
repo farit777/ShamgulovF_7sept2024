@@ -16,6 +16,22 @@ class PageUi:
         """Открывает страницу 'Щитовидная железа'"""
         self.browser.get(self.url)
 
+    @allure.step("Получим количество товаров в корзине")
+    def get_item_count(self):
+        self.browser.get("https://altaivita.ru/cart/")
+        try:
+            # Ожидание, пока кнопка "В корзину" станет кликабельной
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
+            # Ждем когда список станет видимым и находим элемент списка товаров в корзине
+            basket_list  = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]")))
+            # Находим все дочерние элементы (товары) в корзине
+            basket_items = basket_list.find_elements(By.XPATH, "./div[@class='basket__item js-cart-item']")
+            # Получаем и возвращаем количество товаров в корзине
+            return len(basket_items)
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
+            return 0
+
     @allure.step("Клик по кнопке 'В корзину' товар 'Огневка Люкс'")
     def click_to_cart(self):
         """Отправляет товар в корзину"""
@@ -32,37 +48,62 @@ class PageUi:
         self.count_prods = int(count_prods.text)
 
 
-    @allure.step("Проверка доступности стран по ссылке")
-    def open_countries(self):
-        """Открывает страницу стран"""
-        countries_link = self.browser.find_element(By.CSS_SELECTOR, "a[href='/lists/categories/movies/9/']")
-        countries_link.click()
+    @allure.step("Проверка увеличения количества товара")
+    def increase_quantity(self):
+        "Отправляем товар в корзину"
+        try:
+            # Ожидание, пока кнопка "В корзину" станет кликабельной
+            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            btn_to_cart = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))
+            # Клик по кнопке
+            btn_to_cart.click()
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
 
-    @allure.step("Проверка доступности Годы по ссылке")
-    def open_years(self):
-        """Открывает страницу Годы"""
-        years_link = self.browser.find_element(By.CSS_SELECTOR, "a[href='/lists/categories/movies/7/']")
-        years_link.click()
+        "Увеличиваем количество на 1"
+        try:
+            # Ожидание, пока кнопка "+" станет кликабельной
+            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            btn_plus = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[2]/button[2]')))
+            # Клик по кнопке
+            btn_plus.click()
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
 
-    @allure.step("Проверка доступности Критика по ссылке")
-    def open_critics(self):
-        """Отрывает страницу отзывов"""
-        critics_link = self.browser.find_element(By.CSS_SELECTOR, "a[href='/lists/categories/movies/18/']")
-        critics_link.click()
+        count_prods = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'span.count.js-count-number.active')))
+        self.count_prods = int(count_prods.text)
 
-    @allure.step("Проверка сериалов на странице фильмов по ссылке")
-    def open_incoming(self):
-        """Открывает страницу поступлений за фильмы"""
-        incoming_link = self.browser.find_element(By.CSS_SELECTOR, "a[href='/lists/categories/movies/5/']")
-        incoming_link.click()
+    @allure.step("Проверка удаления товара из корзины")
+    def remove_item_from_cart(self):
+        "Отправляем товар в корзину"
+        try:
+            # Ожидание, пока кнопка "В корзину" станет кликабельной
+            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            btn_to_cart = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))
+            # Клик по кнопке
+            btn_to_cart.click()
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
 
+        "Кликаем по кнопке 'Корзина'"
+        try:
+            # Ожидание, пока кнопка "Корзина" станет кликабельной
+            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            btn_plus = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/header/div[1]/div[1]/div[6]/div[2]/a')))
+            # Клик по кнопке
+            btn_plus.click()
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
 
-    # @allure.step("Закрыть модальное окно, если оно открыто")
-    # def close_modal_if_open(self):
-    #     """Функция закрывает модальное окно, если оно присутствует"""
-    #     try:
-    #         modal_close_button = self.browser.find_element(By.CSS_SELECTOR, "body > div.ReactModalPortal > div > div > div > div:nth-child(1) > div.styles_buttonContainer__R98ro > button.style_button__PNtXT.style_buttonSize48__7RF4w.style_secondaryTransparent__ehaDu.style_buttonDark__beFpy.style_fullWidth__Kw7rX")
-    #         modal_close_button.click()
-    #     except Exception as e:
-    #         allure.attach(self.browser.get_screenshot_as_png(), name="Modal Close Error", attachment_type=allure.attachment_type.PNG)
-    #         print("Модальное окно не найдено или не открыто.")
+        "Кликаем по кнопке 'Удалить - Х'"
+        try:
+            # Ожидание, пока кнопка "X" станет кликабельной
+            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            btn_del = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/header/div[1]/div[1]/div[6]/div[2]/div/div[2]/div/div[1]/div[2]/div[1]/button')))
+            # Клик по кнопке
+            btn_del.click()
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
+
+        item_count = self.get_item_count()
+        self.count_prods = item_count
