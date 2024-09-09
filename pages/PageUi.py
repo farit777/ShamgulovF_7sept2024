@@ -37,7 +37,7 @@ class PageUi:
         """Отправляет товар в корзину"""
         try:
             # Ожидание, пока кнопка "В корзину" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))  # Замените на ваш XPath
             # Клик по кнопке
             button.click()
@@ -53,7 +53,7 @@ class PageUi:
         "Отправляем товар в корзину"
         try:
             # Ожидание, пока кнопка "В корзину" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             btn_to_cart = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))
             # Клик по кнопке
             btn_to_cart.click()
@@ -63,7 +63,7 @@ class PageUi:
         "Увеличиваем количество на 1"
         try:
             # Ожидание, пока кнопка "+" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             btn_plus = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[2]/button[2]')))
             # Клик по кнопке
             btn_plus.click()
@@ -78,7 +78,7 @@ class PageUi:
         "Отправляем товар в корзину"
         try:
             # Ожидание, пока кнопка "В корзину" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             btn_to_cart = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))
             # Клик по кнопке
             btn_to_cart.click()
@@ -88,7 +88,7 @@ class PageUi:
         "Кликаем по кнопке 'Корзина'"
         try:
             # Ожидание, пока кнопка "Корзина" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             btn_plus = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/header/div[1]/div[1]/div[6]/div[2]/a')))
             # Клик по кнопке
             btn_plus.click()
@@ -98,7 +98,7 @@ class PageUi:
         "Кликаем по кнопке 'Удалить - Х'"
         try:
             # Ожидание, пока кнопка "X" станет кликабельной
-            wait = WebDriverWait(self.browser, 10)  # Таймаут в 10 секунд
+            wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
             btn_del = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/header/div[1]/div[1]/div[6]/div[2]/div/div[2]/div/div[1]/div[2]/div[1]/button')))
             # Клик по кнопке
             btn_del.click()
