@@ -18,6 +18,7 @@ SELECT p.product_name
 FROM products p
 JOIN nutrinfo n ON p.product_id = n.product_id
 ORDER BY n.protein DESC
+LIMIT 1;
 
 
 4. Подсчитайте общую сумму калорий для продуктов каждой категории, но не учитывайте продукты с нулевым жиром (fat = 0). Выведите id категории, сумму калорий:
