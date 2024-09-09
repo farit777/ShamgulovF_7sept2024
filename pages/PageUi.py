@@ -20,9 +20,9 @@ class PageUi:
     def get_item_count(self):
         self.browser.get("https://altaivita.ru/cart/")
         try:
-            # Ожидание, пока кнопка "В корзину" станет кликабельной
+            # Ожидание, контейнер списка станет доступным
             wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
-            # Ждем когда список станет видимым и находим элемент списка товаров в корзине
+            # Ждем когда список станет видимым и находим контейнер списка товаров в корзине
             basket_list  = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]")))
             # Находим все дочерние элементы (товары) в корзине
             basket_items = basket_list.find_elements(By.XPATH, "./div[@class='basket__item js-cart-item']")
@@ -38,7 +38,7 @@ class PageUi:
         try:
             # Ожидание, пока кнопка "В корзину" станет кликабельной
             wait = WebDriverWait(self.browser, 5)  # Таймаут в 10 секунд
-            button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))  # Замените на ваш XPath
+            button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/main/div/div[5]/div[1]/div[4]/div/div[4]/div/div[2]/div[1]/button')))
             # Клик по кнопке
             button.click()
         except Exception as e:
