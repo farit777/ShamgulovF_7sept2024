@@ -1,10 +1,10 @@
 import requests
 import allure
 
-class MainApi:
+class PageApi:
 
     def __init__(self):
-        self.base_url = "https://altaivita.ru/engine/cart"
+        self.base_url = "https://altaivita.ru/engine"
 
     # Отправить товар в корзину
     @allure.title("API: Отправление товара в корзину")
@@ -16,7 +16,7 @@ class MainApi:
         """
         with allure.step("Запрос на отправку товара в корзину"):
             path = ("{base_url}/ajax/ajax_ecommerce/ajax_ecommerce".format(base_url=self.base_url))
-            resp = requests.post(path, headers=new_headers, data=new_body)
+            resp = requests.post(path, headers=new_headers, payload=new_body)
         with allure.step("Возврат инфо о товаре, добавленного в корзину"):
             return  resp.json()
 
@@ -30,7 +30,7 @@ class MainApi:
         """
         with allure.step("Запрос на добаление количества товара в корзине"):
             path = ("{base_url}/movie/possible-values-by-field?field={f_name}".format(base_url=self.base_url, f_name=field_name))
-            resp = requests.get(path, headers=self.headers)
+            resp = requests.post(path, headers=self.headers)
         with allure.step("Возврат количества добавленного товара"):
             return  resp.json()
     
@@ -44,6 +44,6 @@ class MainApi:
         """
         with allure.step("Запрос на Удаление товара из корзины"):
             path = ("{base_url}/movie/possible-values-by-field?field={f_name}".format(base_url=self.base_url, f_name=field_name))
-            resp = requests.get(path, headers=self.headers)
+            resp = requests.post(path, headers=self.headers)
         with allure.step("Возврат инфо об удаленном товаре"):    
             return  resp.json()
